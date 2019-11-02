@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MainLayout from '../src/layout';
+import MainLayout from './layout';
 import 'antd/dist/antd.css';
 import './assets/scss/index.scss';
 
