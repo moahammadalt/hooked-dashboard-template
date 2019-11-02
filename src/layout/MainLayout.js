@@ -1,136 +1,48 @@
 import React from 'react';
+import {
+  Route,
+  Link,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
+
+import { dashboardRoutes } from '../router';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-function App() {
+function MainLayout() {
   return (
     <Layout>
       <Sider collapsible collapsed={false}>
         <div className="logo">Picco</div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1">
-            <Icon type="upload" />
-            <span className="nav-text">nav 3</span>
-          </Menu.Item>
-          <Menu.Item key="2">
-            <Icon type="bar-chart" />
-            <span className="nav-text">nav 4</span>
-          </Menu.Item>
-          <Menu.Item key="3">
-            <Icon type="appstore-o" />
-            <span className="nav-text">nav 6</span>
-          </Menu.Item>
-          <Menu.Item key="4">
-            <Icon type="team" />
-            <span className="nav-text">nav 7</span>
-          </Menu.Item>
-          <Menu.Item key="5">
-            <Icon type="shop" />
-            <span className="nav-text">nav 8</span>
-          </Menu.Item>
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['0']}>
+
+          {dashboardRoutes.map((route, index) => (
+            <Menu.Item key={index}>
+              <Link to={route.path}>
+                <Icon type={route.icon} />
+                <span className="nav-text">{route.name}</span>
+              </Link>
+            </Menu.Item>
+          ))}
+
         </Menu>
       </Sider>
       <Layout>
         <Header>header data</Header>
         <Content>
-          <div>
-            ...
-            <br />
-            Really
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            long
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            ...
-            <br />
-            content
-          </div>
+          <Switch>
+            {dashboardRoutes.map((route) => (
+              <Route
+                exact={true}
+                key={route.path}
+                path={route.path}
+                component={route.component}
+              />
+            ))}
+            <Redirect to="/"/>
+          </Switch>
         </Content>
         <Footer>picco bla bla ©2019</Footer>
       </Layout>
@@ -138,4 +50,4 @@ function App() {
   );
 }
 
-export default App;
+export default MainLayout;
