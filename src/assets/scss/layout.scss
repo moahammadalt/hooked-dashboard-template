@@ -1,0 +1,37 @@
+.logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+  color: $white;
+  display: flex;
+  font-weight: italic;
+  justify-content: center;
+  align-items: center;
+}
+
+.ant-layout-sider {
+  overflow: auto;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+}
+
+.ant-layout-content {
+  margin: 24px 16px 0;
+  overflow: initial;
+  padding: 24px;
+  background: $white;
+}
+
+.ant-layout{
+  margin-left: 100px;
+}
+
+.ant-layout-header {
+  background: $white;
+  padding: 0;
+}
+
+.ant-layout-footer {
+  text-align: center;
+}
