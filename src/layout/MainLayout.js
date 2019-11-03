@@ -12,10 +12,14 @@ import { dashboardRoutes } from '../router';
 const { Header, Content, Footer, Sider } = Layout;
 
 function MainLayout() {
+  console.log('MainLayout: ', MainLayout);
   return (
-    <Layout>
+    <Layout className="main-layout">
       <Sider collapsible collapsed={false}>
-        <div className="logo">Picco</div>
+        <div className="logo">
+          <img  src={require('../assets/img/favicon.png')} />
+          <span>Piccoloveliero</span>
+        </div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['0']}>
 
           {dashboardRoutes.map((route, index) => (

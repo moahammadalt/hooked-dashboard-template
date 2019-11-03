@@ -6,22 +6,15 @@ import {
   Redirect
 } from 'react-router-dom';
 import 'antd/dist/antd.css';
+import store from 'store';
 
 import { baseRoutes } from '../src/router';
 
 import './assets/scss/index.scss';
 
-const authKey =
-  localStorage.getItem('isAuthenticated') === 'null'
-    ? null
-    : localStorage.getItem('isAuthenticated');
-
 function App({ history }) {
-  const [isAuthenticated, setUserAuth] = useState(authKey);
-
-  useEffect(() => {
-    console.log('token', isAuthenticated);
-  }, [isAuthenticated]);
+  const [isAuthenticated, setUserAuth] = useState(!!store.get('authenticationToken'));
+  console.log('token', isAuthenticated);
 
   const PrivateRoute = props =>
     isAuthenticated || props.noAuth ? (
