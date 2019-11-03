@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import store from 'store';
 import { Form, Icon, Input, Button, Layout } from 'antd';
 import '../../assets/scss/login.scss';
 
-import { API } from '../../utils/API';
-import { URL } from '../../constants';
+import { API, setAuthorizationToken } from '../../utils/API';
+import { URLS } from '../../constants';
 
 function Login({ form }) {
-  const [isAuthenticated, setIsAuth] = useState(!!store.get('authenticationToken'));
-  console.log('isAuthenticated: ', isAuthenticated);
+  const [isAuthenticated, setIsAuth] = useState(
+    !!store.get('authenticationToken')
+  );
   const { getFieldDecorator, validateFields } = form;
 
   const handleSubmit = async e => {
@@ -17,23 +18,23 @@ function Login({ form }) {
 
     try {
       const values = await validateFields();
-      console.log('values: ', values);
-      const response = await API.post(URL.login, values);
-      store.set('authenticationToken', response.data.data.token)
+      const {
+        data: {
+          data: { token }
+        }
+      } = await API.post(URLS.login, values);
+      store.set('authenticationToken', token);
+      setAuthorizationToken(token);
       setIsAuth(true);
-      
-      console.log('response: ', response);
-    }
-    catch (err) {
+    } catch (err) {
       return;
     }
   };
-
   return isAuthenticated ? (
     <Redirect to="/" />
   ) : (
     <Layout className="login-layout">
-      <img  src={require('../../assets/img/favicon.png')} />
+      <img src={require('../../assets/img/favicon.png')} alt="" />
       <Form onSubmit={handleSubmit} className="login-form">
         <Form.Item>
           {getFieldDecorator('userName', {

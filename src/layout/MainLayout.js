@@ -1,43 +1,34 @@
-import React from 'react';
-import {
-  Route,
-  Link,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
-import { Layout, Menu, Icon } from 'antd';
+import React, { useContext } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { Layout } from 'antd';
+import store from 'store';
+
+import SideBarLayout from './SideBarLayout';
+import HeaderLayout from './HeaderLayout';
+import FooterLayout from './FooterLayout';
 
 import { dashboardRoutes } from '../router';
+import { LayoutContext } from '../contexts';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content } = Layout;
 
 function MainLayout() {
-  console.log('MainLayout: ', MainLayout);
-  return (
-    <Layout className="main-layout">
-      <Sider collapsible collapsed={false}>
-        <div className="logo">
-          <img  src={require('../assets/img/favicon.png')} />
-          <span>Piccoloveliero</span>
-        </div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['0']}>
+  const isAuthenticated = !!store.get('authenticationToken');
 
-          {dashboardRoutes.map((route, index) => (
-            <Menu.Item key={index}>
-              <Link to={route.path}>
-                <Icon type={route.icon} />
-                <span className="nav-text">{route.name}</span>
-              </Link>
-            </Menu.Item>
-          ))}
+  const {
+    sideBarCollapsed: [sideBarCollapsed]
+  } = useContext(LayoutContext);
 
-        </Menu>
-      </Sider>
+  return !isAuthenticated ? (
+    <Redirect to="/login" />
+  ) : (
+    <Layout style={{ marginLeft: sideBarCollapsed ? '80px' : '200px' }}>
+      <SideBarLayout />
       <Layout>
-        <Header>header data</Header>
+        <HeaderLayout />
         <Content>
           <Switch>
-            {dashboardRoutes.map((route) => (
+            {dashboardRoutes.map(route => (
               <Route
                 exact={true}
                 key={route.path}
@@ -45,10 +36,10 @@ function MainLayout() {
                 component={route.component}
               />
             ))}
-            <Redirect to="/"/>
+            <Redirect to="/" />
           </Switch>
         </Content>
-        <Footer>picco bla bla ©2019</Footer>
+        <FooterLayout />
       </Layout>
     </Layout>
   );

@@ -1,3 +1,3 @@
 export const ff = 10;
 
-export { default as URL } from './urls';
+export { default as URLS } from './urls';

@@ -1,3 +1,5 @@
-export default URL = {
+const URLS = {
   login: '/login',
 }
+
+export default URLS;

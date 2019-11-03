@@ -1,9 +1,9 @@
 import MainLayout from '../layout';
 // GeneralViews
 import Login from '../pages/Login';
-import NotFound from '../pages/NotFound';
 import Dashboard from '../pages/Dashboard';
 import CreateProduct from '../pages/CreateProduct';
+import ProductDetails from '../pages/ProductDetails';
 
 export const dashboardRoutes = [
   {
@@ -11,22 +11,21 @@ export const dashboardRoutes = [
     component: Dashboard,
     name: "Home",
     icon: "shop",
-    hasSideBarLink: true,
+    showAlways: true,
   },
   {
     path: '/create-product',
     component: CreateProduct,
     name: "Create Product",
     icon: "upload",
-    hasSideBarLink: true,
+    showAlways: true,
   },
   {
     path: '/product/:productSlug',
-    component: CreateProduct,
+    component: ProductDetails,
     name: "Product details",
     icon: "team",
-    hasSideBarLink: false,
-    hasSideBarLinkOnlyIfRouteMatch: true,
+    showAlways: false,
   },
 ];
 export const baseRoutes = [
