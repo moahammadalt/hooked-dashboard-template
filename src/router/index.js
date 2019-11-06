@@ -1,14 +1,14 @@
 import MainLayout from '../layout';
 // GeneralViews
 import Login from '../pages/Login';
-import Dashboard from '../pages/Dashboard';
+import Home from '../pages/Home';
 import CreateProduct from '../pages/CreateProduct';
 import ProductDetails from '../pages/ProductDetails';
 
 export const dashboardRoutes = [
   {
     path: '/',
-    component: Dashboard,
+    component: Home,
     name: "Home",
     icon: "shop",
     showAlways: true,

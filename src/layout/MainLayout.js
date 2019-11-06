@@ -13,15 +13,11 @@ import { LayoutContext } from '../contexts';
 const { Content } = Layout;
 
 function MainLayout() {
-  const isAuthenticated = !!store.get('authenticationToken');
-
   const {
     sideBarCollapsed: [sideBarCollapsed]
   } = useContext(LayoutContext);
 
-  return !isAuthenticated ? (
-    <Redirect to="/login" />
-  ) : (
+  return (
     <Layout style={{ marginLeft: sideBarCollapsed ? '80px' : '200px' }}>
       <SideBarLayout />
       <Layout>
