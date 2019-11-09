@@ -13,9 +13,7 @@ import '../../assets/scss/index.scss';
 function AppContainer({ history }) {
   const isAuthenticated = !!store.get('authenticationToken');
 
-  const {
-    loading: [loading]
-  } = useContext(LoadingContext);
+  const { loading } = useContext(LoadingContext);
 
   return (
     <Fragment>

@@ -1,54 +1,52 @@
-import React, { useState, useEffect, useContext } from 'react';
 
+import React, { useState, useContext, useEffect } from 'react';
 import { LoadingContext } from '../contexts';
 
 import { API, setAuthorizationToken } from '../utils/API';
 
-export function useFetch(url, options) {
-  console.log('url: ', url);
-  const [response, setResponse] = useState({});
-  const {
-    loading: [ loading, setLoading ]
-  } = useContext(LoadingContext);
+export function useFetch({} = {}) {
+  // ---- State
+  const [data, setData] = useState(null);
+  const [fetchObj, doFetch] = useState(null);
+  const { loading, setLoading } = useContext(LoadingContext);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    async function fetchData() {
-      console.log('fetchData: ');
+  const fetchData = async () => {
+    setError(null);
+    try {
       setLoading(true);
-      try {
-        const res = (options ? await API.post(url, options) : await API.get(url, options));
-        setResponse(res);
-      }
-      catch (err) {
-        console.log('err: ', err);
-      }
-      
-      setTimeout(() => {
-        setLoading(false);
-      }, 3000)
-      //setLoading(false);
-      
-      
-    }
-    !!url && fetchData();
-  }, [url]);
-  return response;
-}
+      let res = null;
+      switch (fetchObj.method) {
+        case 'GET':
+          res = await API.get(fetchObj.url);
+          break;
 
-/* const useFetch = (url, options) => {
-  const [response, setResponse] = React.useState(null);
-  const [error, setError] = React.useState(null);
-  React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(url, options);
-        const json = await res.json();
-        setResponse(json);
-      } catch (error) {
-        setError(error);
+        case 'POST':
+          res = await API.post(fetchObj.url, fetchObj.params);
+          break;
+
+        case 'FILE_POST':
+          res = await API.post(fetchObj.url, fetchObj.params);
+          break;
+      
+        default:
+          res = fetchObj.params ? await API.post(fetchObj.url, fetchObj.params) : await API.get(fetchObj.url)
+          break;
       }
-    };
-    fetchData();
-  }, []);
-  return { response, error };
-}; */
+
+      setData(res);
+    } catch (err) {
+      console.log('err: ', err);
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    !!fetchObj && fetchData();
+
+    doFetch(null);
+  }, [fetchObj]);
+
+  return {data, error, loading, doFetch};
+}

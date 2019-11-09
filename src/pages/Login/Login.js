@@ -12,15 +12,29 @@ function Login({ form }) {
   const [isAuthenticated, setIsAuth] = useState(
     !!store.get('authenticationToken')
   );
-  const [apiUrl, setApiUrl] = useState(null);
   const { getFieldDecorator, validateFields } = form;
-
-  const data = useFetch(apiUrl, {});
-  console.log('data: ', data);
+  const { data, error, loading, doFetch } = useFetch();
+  console.log('{ data, error, loading, doFetch }', { data, error, loading, doFetch });
 
   const handleSubmit = async e => {
     e.preventDefault();
-    setApiUrl(URLS.login);
+
+    /* try {
+      const values = await validateFields();
+      const {
+        data: {
+          data: { token }
+        }
+      } = await API.post(URLS.login, values);
+      store.set('authenticationToken', token);
+      setAuthorizationToken(token);
+      setIsAuth(true);
+    } catch (err) {
+      return;
+    } */
+    const params = await validateFields();
+    doFetch({url: URLS.login, params});
+    
   };
   return isAuthenticated ? (
     <Redirect to="/" />
