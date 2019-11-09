@@ -5,10 +5,21 @@ const LayoutContext = createContext();
 function LayoutProvider({ children }) {
   const [sideBarCollapsed, setCollapsed] = useState(false);
   const [theme, setTheme] = useState('dark');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [successNotification, setSuccessNotification] = useState(false);
 
   const initialState = {
-    sideBarCollapsed: [sideBarCollapsed, setCollapsed],
-    theme: [theme, setTheme],
+    sideBarCollapsed,
+    setCollapsed,
+    theme,
+    setTheme,
+    loading,
+    setLoading,
+    error,
+    setError,
+    successNotification,
+    setSuccessNotification,
   };
 
   return (

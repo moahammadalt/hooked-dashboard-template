@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
-import store from 'store';
 
 import SideBarLayout from './SideBarLayout';
 import HeaderLayout from './HeaderLayout';
@@ -13,9 +12,7 @@ import { LayoutContext } from '../contexts';
 const { Content } = Layout;
 
 function MainLayout() {
-  const {
-    sideBarCollapsed: [sideBarCollapsed]
-  } = useContext(LayoutContext);
+  const { sideBarCollapsed } = useContext(LayoutContext);
 
   return (
     <Layout style={{ marginLeft: sideBarCollapsed ? '80px' : '200px' }}>

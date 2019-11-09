@@ -16,8 +16,9 @@ function SideBarLayout(props) {
 
   const isPathMatchRequestedUrl = path => !!pathToRegexp(path).exec(pathname);
   const {
-    sideBarCollapsed: [ sideBarCollapsed, setCollapsed ],
-    theme: [ theme ]
+    sideBarCollapsed,
+    setCollapsed,
+    theme,
   } = useContext(LayoutContext);
 
   return (

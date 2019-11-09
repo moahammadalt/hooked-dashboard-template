@@ -1,15 +1,22 @@
 import React from 'react';
+import store from 'store';
 
-import { LayoutProvider, LoadingProvider } from '../src/contexts';
 import AppContainer from './containers/AppContainer';
 
+import { LayoutProvider } from '../src/contexts';
+import { setAuthorizationToken } from '../src/utils/API';
+
 function App() {
+  const authToken = store.get('authenticationToken');
+
+  if(!!authToken) {
+    setAuthorizationToken(authToken);
+  }
+  
   return (
-    <LoadingProvider>
-      <LayoutProvider>
-        <AppContainer />
-      </LayoutProvider>
-    </LoadingProvider>
+    <LayoutProvider>
+      <AppContainer />
+    </LayoutProvider>
   );
 }
 

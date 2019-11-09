@@ -1,42 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import store from 'store';
 import { Form, Icon, Input, Button, Layout } from 'antd';
 import '../../assets/scss/login.scss';
 
 import { useFetch } from '../../hooks';
-import { API, setAuthorizationToken } from '../../utils/API';
+import { setAuthorizationToken } from '../../utils/API';
 import { URLS } from '../../constants';
 
 function Login({ form }) {
-  const [isAuthenticated, setIsAuth] = useState(
-    !!store.get('authenticationToken')
-  );
   const { getFieldDecorator, validateFields } = form;
-  const { data, error, loading, doFetch } = useFetch();
-  console.log('{ data, error, loading, doFetch }', { data, error, loading, doFetch });
+  const authToken = !!store.get('authenticationToken');
+  const {
+    data: { token },
+    doFetch
+  } = useFetch();
+
+  if (token) {
+    store.set('authenticationToken', token);
+    setAuthorizationToken(token);
+  }
 
   const handleSubmit = async e => {
     e.preventDefault();
-
-    /* try {
-      const values = await validateFields();
-      const {
-        data: {
-          data: { token }
-        }
-      } = await API.post(URLS.login, values);
-      store.set('authenticationToken', token);
-      setAuthorizationToken(token);
-      setIsAuth(true);
-    } catch (err) {
-      return;
-    } */
-    const params = await validateFields();
-    doFetch({url: URLS.login, params});
-    
+    doFetch({
+      url: URLS.login,
+      params: await validateFields()
+    });
   };
-  return isAuthenticated ? (
+
+  return token || authToken ? (
     <Redirect to="/" />
   ) : (
     <Layout className="login-layout">
