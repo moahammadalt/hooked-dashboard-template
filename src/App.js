@@ -3,19 +3,21 @@ import store from 'store';
 
 import AppContainer from './containers/AppContainer';
 
-import { LayoutProvider } from '../src/contexts';
+import { LayoutProvider, StoreProvider } from '../src/contexts';
 import { setAuthorizationToken } from '../src/utils/API';
 
 function App() {
   const authToken = store.get('authenticationToken');
 
-  if(!!authToken) {
+  if (!!authToken) {
     setAuthorizationToken(authToken);
   }
-  
+
   return (
     <LayoutProvider>
-      <AppContainer />
+      <StoreProvider>
+        <AppContainer />
+      </StoreProvider>
     </LayoutProvider>
   );
 }

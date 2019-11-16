@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 import store from 'store';
 
 import { LayoutContext } from '../../contexts';
-import { handleRequestError, setAuthorizationToken } from '../../utils/API';
+import { handleRequestError } from '../../utils/API';
 import { baseRoutes } from '../../router';
 
 import '../../assets/scss/index.scss';
@@ -13,7 +13,7 @@ import '../../assets/scss/index.scss';
 function AppContainer({ history }) {
   const authToken = store.get('authenticationToken');
 
-  const { loading, error, successNotification } = useContext(LayoutContext);
+  const { loading, error, successNotification } = useContext(LayoutContext); 
 
   useEffect(() => {
     !!error && notification.error({
@@ -27,7 +27,6 @@ function AppContainer({ history }) {
       message: successNotification,
       duration: 3,
     });
-
   }, [error, successNotification])
 
   return (

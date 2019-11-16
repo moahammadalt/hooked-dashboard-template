@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { LayoutContext } from '../contexts';
 
-import { API } from '../utils/API';
+import { API, extractDataObject } from '../utils/API';
 
 export function useFetch(fetchInitialObj) {
   const [data, setData] = useState(null);
@@ -41,8 +41,11 @@ export function useFetch(fetchInitialObj) {
               : await API.get(fetchObj.url);
             break;
         }
-  
+        
         setData(res);
+        
+        !!fetchObj.onSuccess && fetchObj.onSuccess(extractDataObject(res));
+
         fetchObj.showSuccessNotification &&
           setSuccessNotification(
             fetchObj.successMessage || 'request has been done successfully.'
@@ -60,9 +63,9 @@ export function useFetch(fetchInitialObj) {
   }, [ fetchObj ]);
 
   return {
-    data: data && data.data && data.data.data ? data.data.data : {},
+    data: extractDataObject(data),
     error,
     loading,
-    doFetch
+    doFetch,
   };
 }
