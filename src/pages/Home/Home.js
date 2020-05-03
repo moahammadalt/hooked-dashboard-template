@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 
-/* import { useFetch } from '../../hooks';
-import { URLS } from '../../constants'; */
+import { LayoutContext } from '../../contexts';
 
 function Home() {
 
-  /* const { data } = useFetch({
-    url: URLS.dashboardRetrive,
-  });
-  console.log('data', data); */
+  const { setHeaderComponent } = useContext(LayoutContext);
+
+  useEffect(() => {
+    setHeaderComponent(<b>Create new product</b>);
+    return () => {
+      setHeaderComponent(null);
+    };
+  }, []);
 
   return (
     <div>Home page</div>

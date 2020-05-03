@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = `${
+export const baseURL = `${
   window.location.hostname === 'localhost'
     ? 'http://localhost:1000'
     : window.location.origin
@@ -38,4 +38,4 @@ export const handleRequestError = error => {
   return genericError;
 };
 
-export const extractDataObject = (data) => data && data.data && data.data.data ? data.data.data : {};
+export const extractDataObject = (data, defaultValue) => data && data.data && data.data.data ? data.data.data : defaultValue || {};

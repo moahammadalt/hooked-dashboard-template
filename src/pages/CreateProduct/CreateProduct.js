@@ -1,10 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
-import { StoreContext } from '../../contexts';
+import { LayoutContext } from '../../contexts';
 
 function CreateProduct() {
 
-  const { data } = useContext(StoreContext);
+  const { setHeaderComponent } = useContext(LayoutContext);
+
+  useEffect(() => {
+    setHeaderComponent(<b>Create new product</b>);
+    return () => {
+      setHeaderComponent(null);
+    };
+  }, []);
   
   return (
     <div>CreateProduct page</div>

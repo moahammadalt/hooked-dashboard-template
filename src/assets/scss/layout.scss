@@ -28,3 +28,104 @@
 .ant-layout-footer {
   text-align: center;
 }
+
+.header-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+
+  .logout-icon{
+    font-size: 25px;
+    cursor: pointer;
+  }
+}
+
+
+.filter-select{
+  width: 220px;
+  margin-left: 10px;
+}
+
+.filter-item{
+  margin-right: 30px;
+  display: inline;
+}
+
+.filter-by-name{
+  width: 350px;
+  margin-left: 10px;
+}
+
+.ant-popover-inner-content{
+  max-width: 400px;
+  word-break: break-all;
+}
+
+.hidden{
+  display: none;
+}
+.f-r{
+  float: right;
+}
+.f-l{
+  float: left;
+}
+.w-100{
+  width: 100%;
+}
+.m-t-30{
+  margin-top: 30px;
+}
+.m-t-43{
+  margin-top: 42px;
+}
+.m-r-5{
+  margin-right: 5px;
+}
+.m-l-30{
+  margin-left: 30px;
+}
+.m-l-20{
+  margin-left: 20px;
+}
+.m-r-15{
+  margin-right: 15px;
+}
+.m-r-30{
+  margin-right: 30px;
+}
+.p-t-30{
+  padding-top: 30px;
+}
+.f-s-20{
+  font-size: 20px;
+}
+.m-b-30{
+  margin-bottom: 30px;
+}
+.m-b-15{
+  margin-bottom: 15px;
+}
+.m-b-10{
+  margin-bottom: 10px;
+}
+.m-r-10{
+  margin-right: 19px;
+}
+.m-l-5{
+  margin-left: 5px;
+}
+.m-t-10{
+  margin-top: 10px;
+}
+.m-b-20{
+  margin-bottom: 20px;
+}
+.flex-r{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+
